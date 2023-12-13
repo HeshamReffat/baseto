@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".presentation.fragments.LoginRegisterFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/startGuideLine"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="20dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/endGuideLine"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_end="20dp" />
+    <ImageView
+        android:id="@+id/logoImage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="174dp"
+        android:contentDescription=""
+        android:src="@drawable/logo"
+        app:layout_constraintEnd_toEndOf="@id/endGuideLine"
+        app:layout_constraintStart_toStartOf="@id/startGuideLine"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/titleTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="100dp"
+        android:text="The Right Address For Shopping Anyday"
+        android:textAlignment="center"
+        android:textSize="32sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@id/endGuideLine"
+        app:layout_constraintStart_toStartOf="@id/startGuideLine"
+        app:layout_constraintTop_toBottomOf="@+id/logoImage" />
+    <TextView
+        android:layout_marginTop="24dp"
+        android:id="@+id/descTV"
+        android:layout_width="221dp"
+        android:layout_height="wrap_content"
+        android:text="It is now very easy to reach the best quality among all the products on the internet!"
+        android:textSize="15sp"
+        app:layout_constraintEnd_toEndOf="@id/endGuideLine"
+        app:layout_constraintStart_toStartOf="@id/startGuideLine"
+        app:layout_constraintTop_toBottomOf="@id/titleTV"
+        />
+<Button
+    android:id="@+id/loginBTN"
+    android:layout_width="256dp"
+    android:layout_height="48dp"
+    android:text="Login"
+    android:layout_marginTop="50dp"
+    android:backgroundTint="@color/blue"
+    app:layout_constraintEnd_toEndOf="@id/endGuideLine"
+    app:layout_constraintStart_toStartOf="@id/startGuideLine"
+    app:layout_constraintTop_toBottomOf="@id/descTV"/>
+    <TextView
+        android:id="@+id/registerTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="Register"
+        android:textAlignment="center"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@id/endGuideLine"
+        app:layout_constraintStart_toStartOf="@id/startGuideLine"
+        app:layout_constraintTop_toBottomOf="@+id/loginBTN" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

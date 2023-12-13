@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".presentation.fragments.OnboardFragment">
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:id="@+id/backImage"
+        android:src="@drawable/texture_left"/>
+    <ImageView
+        android:layout_width="70dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/backImage"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:id="@+id/backImage2"
+        android:src="@drawable/texture_right"/>
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/horizontalLineStart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="20dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/horizontalLineEnd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_end="20dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/verticalLineStart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="20dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/VerticalLineEnd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_end="20dp" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="220dp"
+        android:src="@drawable/ellipse_login"
+        app:layout_constraintBottom_toBottomOf="@id/horizontalLineEnd"
+        app:layout_constraintEnd_toEndOf="@id/backImage2"
+        app:layout_constraintStart_toStartOf="@id/backImage"
+        app:layout_constraintTop_toTopOf="@id/horizontalLineStart"
+        app:layout_constraintVertical_bias="0.29" />
+
+    <TextView
+        android:id="@+id/titleTV"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:text="The Right Address For Shopping Anyday"
+        android:textAlignment="center"
+        android:textSize="32sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@id/horizontalLineEnd"
+        app:layout_constraintEnd_toEndOf="@id/VerticalLineEnd"
+        app:layout_constraintStart_toStartOf="@+id/verticalLineStart"
+        app:layout_constraintTop_toTopOf="@id/horizontalLineStart"
+        app:layout_constraintVertical_bias="0.48000002" />
+    <TextView
+        android:layout_marginTop="24dp"
+        android:id="@+id/descTV"
+        android:layout_width="220dp"
+        android:layout_height="wrap_content"
+        android:text="It is now very easy to reach the best quality among all the products on the internet!"
+        android:textSize="15sp"
+        app:layout_constraintEnd_toEndOf="@id/VerticalLineEnd"
+        app:layout_constraintStart_toStartOf="@+id/verticalLineStart"
+        app:layout_constraintTop_toBottomOf="@id/titleTV"
+        />
+    <Button
+        android:layout_width="150dp"
+        android:layout_height="60dp"
+        android:id="@+id/next_btn"
+        app:layout_constraintTop_toBottomOf="@id/descTV"
+        app:layout_constraintBottom_toBottomOf="@id/horizontalLineEnd"
+        app:layout_constraintStart_toStartOf="@id/verticalLineStart"
+        app:layout_constraintEnd_toEndOf="@id/VerticalLineEnd"
+        android:text="Next"/>
+</androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

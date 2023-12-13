@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/onBoardFragment">
+
+    <fragment
+        android:id="@+id/onBoardFragment"
+        android:name="com.hisham.baseto.presentation.fragments.OnboardFragment"
+        android:label="fragment_Onboard"
+        tools:layout="@layout/fragment_onboard">
+        <action
+            android:id="@+id/action_loginFragment_to_loginRegisterFragment"
+            app:destination="@id/loginRegisterFragment"
+            app:popUpTo="@id/onBoardFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/loginRegisterFragment"
+        android:name="com.hisham.baseto.presentation.fragments.LoginRegisterFragment"
+        android:label="LoginRegisterFragment" >
+        <action
+            android:id="@+id/action_loginRegisterFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.hisham.baseto.presentation.fragments.auth.LoginFragment"
+        android:label="fragment_login"
+        tools:layout="@layout/fragment_login" />
+</navigation>
