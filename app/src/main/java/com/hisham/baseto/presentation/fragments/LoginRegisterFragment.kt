@@ -23,6 +23,9 @@ class LoginRegisterFragment : Fragment() {
         binding.loginBTN.setOnClickListener {
             view?.findNavController()?.navigate(R.id.action_loginRegisterFragment_to_loginFragment)
         }
+        binding.registerTV.setOnClickListener {
+            view?.findNavController()?.navigate(R.id.action_loginRegisterFragment_to_registerFragment)
+        }
         return binding.root
     }
 }

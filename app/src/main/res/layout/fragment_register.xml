@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
@@ -8,12 +10,10 @@
             type="com.hisham.baseto.domain.viewmodels.auth.AuthViewModel" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".presentation.fragments.auth.LoginFragment">
+        tools:context=".presentation.fragments.auth.RegisterFragment">
 
 
         <!-- TODO: Update blank fragment layout -->
@@ -35,7 +35,7 @@
             android:id="@+id/logoImage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="174dp"
+            android:layout_marginTop="100dp"
             android:contentDescription=""
             android:src="@drawable/logo"
             app:layout_constraintEnd_toEndOf="@id/endGuideLine"
@@ -46,7 +46,7 @@
             android:id="@+id/titleTV"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Let's Login."
+            android:text="Let's Register."
             android:textSize="32sp"
             android:textStyle="bold"
 
@@ -58,7 +58,7 @@
             android:layout_width="221dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
-            android:text="Do you have an account? Login"
+            android:text="Do not have an account? Register"
             android:textSize="15sp"
 
             app:layout_constraintStart_toStartOf="@id/startGuideLine"
@@ -78,6 +78,33 @@
             app:layout_constraintStart_toStartOf="@id/startGuideLine"
             app:layout_constraintTop_toBottomOf="@id/descTV" />
 
+
+        <EditText
+            android:id="@+id/nameET"
+            android:layout_width="310dp"
+            android:layout_height="56dp"
+            android:layout_marginTop="20dp"
+            android:background="@color/grey"
+            android:backgroundTint="@color/grey"
+            android:hint="Hisham Reffat"
+            android:paddingHorizontal="20dp"
+            android:text="@={viewModel.name}"
+            app:layout_constraintEnd_toEndOf="@id/endGuideLine"
+            app:layout_constraintStart_toStartOf="@id/startGuideLine"
+            app:layout_constraintTop_toBottomOf="@id/emailET" />
+        <EditText
+            android:id="@+id/phoneET"
+            android:layout_width="310dp"
+            android:layout_height="56dp"
+            android:layout_marginTop="20dp"
+            android:background="@color/grey"
+            android:backgroundTint="@color/grey"
+            android:hint="01234567891"
+            android:paddingHorizontal="20dp"
+            android:text="@={viewModel.phone}"
+            app:layout_constraintEnd_toEndOf="@id/endGuideLine"
+            app:layout_constraintStart_toStartOf="@id/startGuideLine"
+            app:layout_constraintTop_toBottomOf="@id/nameET" />
         <EditText
             android:id="@+id/PassET"
             android:layout_width="310dp"
@@ -91,28 +118,28 @@
             android:text="@={viewModel.password}"
             app:layout_constraintEnd_toEndOf="@id/endGuideLine"
             app:layout_constraintStart_toStartOf="@id/startGuideLine"
-            app:layout_constraintTop_toBottomOf="@id/emailET" />
-
+            app:layout_constraintTop_toBottomOf="@id/phoneET" />
         <Button
-            android:id="@+id/loginBTN"
+            android:id="@+id/RegisterBTN"
+            buttonStatus="@{viewModel.loading}"
             android:layout_width="256dp"
             android:layout_height="48dp"
             android:layout_marginTop="50dp"
             android:backgroundTint="@color/blue"
             android:onClick="@{()->viewModel.loginUser()}"
-            buttonStatus="@{viewModel.loading}"
-            android:text="Login"
+            android:text="Register"
             app:layout_constraintEnd_toEndOf="@id/endGuideLine"
             app:layout_constraintStart_toStartOf="@id/startGuideLine"
             app:layout_constraintTop_toBottomOf="@id/PassET" />
+
         <ProgressBar
-            android:layout_marginTop="50dp"
             android:id="@+id/status_loading_wheel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
             android:indeterminate="true"
-            app:apiStatus="@{viewModel.loading}"
             android:visibility="gone"
+            app:apiStatus="@{viewModel.loading}"
             app:layout_constraintEnd_toEndOf="@id/endGuideLine"
             app:layout_constraintStart_toStartOf="@id/startGuideLine"
             app:layout_constraintTop_toBottomOf="@id/PassET" />

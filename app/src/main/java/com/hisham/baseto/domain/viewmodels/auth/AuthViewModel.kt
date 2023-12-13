@@ -12,7 +12,9 @@ import com.hisham.baseto.domain.repository.UserRepository
 import kotlinx.coroutines.launch
 
 class AuthViewModel(val repo: UserRepository, val context: Context) : ViewModel() {
-    val username = MutableLiveData<String>()
+    val email = MutableLiveData<String>()
+    val name = MutableLiveData<String>()
+    val phone = MutableLiveData<String>()
     val password = MutableLiveData<String>()
     private val _loading = MutableLiveData<Constants.ApiStatus?>()
     val loading: LiveData<Constants.ApiStatus?>
@@ -20,7 +22,7 @@ class AuthViewModel(val repo: UserRepository, val context: Context) : ViewModel(
 
 
     fun loginUser() {
-        val user = username.value ?: ""
+        val user = email.value ?: ""
         val pass = password.value ?: ""
         viewModelScope.launch {
             _loading.value = Constants.ApiStatus.LOADING
