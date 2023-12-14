@@ -1,60 +1,93 @@
 package com.hisham.baseto.presentation.fragments.auth
 
+import android.app.Activity
+import android.app.Activity.RESULT_OK
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
+import android.util.Base64
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.result.ActivityResult
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.PickVisualMediaRequest
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import com.hisham.baseto.R
+import com.hisham.baseto.data.database.KelineDatabase
+import com.hisham.baseto.databinding.FragmentRegisterBinding
+import com.hisham.baseto.domain.repository.UserRepository
+import com.hisham.baseto.domain.viewmodels.auth.AuthViewModel
+import com.hisham.baseto.domain.viewmodels.auth.AuthViewModelFactory
+import com.hisham.baseto.presentation.fragments.main.MainFragment
+import java.io.IOException
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [RegisterFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class RegisterFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+    private val viewModel: AuthViewModel by lazy {
+        val application = requireNotNull(this.activity).application
+        val database = KelineDatabase.initDatabase(application.applicationContext).dao
+        val repo = UserRepository(database,requireActivity())
+        val viewModelFactory = AuthViewModelFactory(repo, application.applicationContext)
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
+        ViewModelProvider(this, viewModelFactory).get(AuthViewModel::class.java)
     }
-
+    lateinit var binding: FragmentRegisterBinding
+    lateinit var pickedMedia: ActivityResultLauncher<Intent>
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_register, container, false)
+        pickedMedia = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+            if (it.resultCode == RESULT_OK) {
+                binding.roundImage.setImageURI(it.data?.data)
+                val encodedBase64 =
+                    it.data?.data?.let { it1 -> getBase64ForUriAndPossiblyCrash(it1) }
+                Log.i("Base64", encodedBase64 ?: "")
+            }
+        }
+        binding.roundImage.setOnClickListener {
+            takePictureFromGallery()
+
+        }
+        viewModel.loggedIn.observe(viewLifecycleOwner, Observer {
+            if(it == true){
+                val transaction = requireActivity().supportFragmentManager.beginTransaction()
+                transaction.replace(this.id, MainFragment())
+                transaction.disallowAddToBackStack()
+                transaction.commit()
+            }
+        })
+        binding.viewModel = viewModel
+        binding.lifecycleOwner = this
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_register, container, false)
+        return binding.root
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment RegisterFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            RegisterFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
+    private fun takePictureFromGallery() {
+        val intent = Intent(Intent.ACTION_PICK)
+        intent.apply {
+            type = "image/*"
+            action = Intent.ACTION_GET_CONTENT
+        }
+        pickedMedia.launch(intent)
+    }
+
+    private fun getBase64ForUriAndPossiblyCrash(uri: Uri): String {
+        var base64: String = ""
+        try {
+            val stream = context?.contentResolver?.openInputStream(uri)
+            val bytes = stream?.readBytes()
+            base64 = Base64.encodeToString(bytes, Base64.DEFAULT)
+            stream?.close()
+        } catch (error: IOException) {
+            error.printStackTrace() // This exception always occurs
+        }
+        return base64
     }
 }

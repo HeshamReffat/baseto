@@ -7,7 +7,7 @@ import android.widget.Button
 import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
-import com.hisham.baseto.domain.Constants
+import com.hisham.baseto.utils.Constants
 
 @BindingAdapter("textFontWeight")
 fun TextView.textFontWeight(int: Int) {
