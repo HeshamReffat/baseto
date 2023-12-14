@@ -8,7 +8,7 @@ import com.hisham.baseto.data.models.user.User
 
 
 @Dao
-interface KelineDao {
+interface BasetoDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertUser(user: User)
 

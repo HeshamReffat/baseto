@@ -1,6 +1,5 @@
 package com.hisham.baseto.presentation.fragments.auth
 
-import android.app.Activity
 import android.app.Activity.RESULT_OK
 import android.content.Intent
 import android.net.Uri
@@ -11,15 +10,13 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.activity.result.ActivityResult
 import androidx.activity.result.ActivityResultLauncher
-import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.hisham.baseto.R
-import com.hisham.baseto.data.database.KelineDatabase
+import com.hisham.baseto.data.database.BasetoDatabase
 import com.hisham.baseto.databinding.FragmentRegisterBinding
 import com.hisham.baseto.domain.repository.UserRepository
 import com.hisham.baseto.domain.viewmodels.auth.AuthViewModel
@@ -30,7 +27,7 @@ import java.io.IOException
 class RegisterFragment : Fragment() {
     private val viewModel: AuthViewModel by lazy {
         val application = requireNotNull(this.activity).application
-        val database = KelineDatabase.initDatabase(application.applicationContext).dao
+        val database = BasetoDatabase.initDatabase(application.applicationContext).dao
         val repo = UserRepository(database,requireActivity())
         val viewModelFactory = AuthViewModelFactory(repo, application.applicationContext)
 

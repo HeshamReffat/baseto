@@ -9,7 +9,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.hisham.baseto.R
-import com.hisham.baseto.data.database.KelineDatabase
+import com.hisham.baseto.data.database.BasetoDatabase
 import com.hisham.baseto.databinding.FragmentLoginBinding
 import com.hisham.baseto.domain.repository.UserRepository
 import com.hisham.baseto.domain.viewmodels.auth.AuthViewModel
@@ -19,7 +19,7 @@ import com.hisham.baseto.presentation.fragments.main.MainFragment
 class LoginFragment : Fragment() {
     private val viewModel: AuthViewModel by lazy {
         val application = requireNotNull(this.activity).application
-        val database = KelineDatabase.initDatabase(application.applicationContext).dao
+        val database = BasetoDatabase.initDatabase(application.applicationContext).dao
         val repo = UserRepository(database,requireActivity())
         val viewModelFactory = AuthViewModelFactory(repo, application.applicationContext)
 

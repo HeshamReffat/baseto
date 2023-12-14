@@ -3,16 +3,15 @@ package com.hisham.baseto.domain.repository
 import android.app.Activity
 import android.content.Context
 import android.util.Log
-import android.widget.Toast
 import com.hisham.baseto.data.api.RetrofitInstance
-import com.hisham.baseto.data.database.KelineDao
+import com.hisham.baseto.data.database.BasetoDao
 import com.hisham.baseto.data.models.user.User
 import com.hisham.baseto.data.models.user.UserDataModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import retrofit2.Response
 
-class UserRepository(private val database: KelineDao, private val activity: Activity) {
+class UserRepository(private val database: BasetoDao, private val activity: Activity) {
     suspend fun userLogin(email: String, password: String): Response<UserDataModel> {
         //  var user: User
         var response: Response<UserDataModel>
