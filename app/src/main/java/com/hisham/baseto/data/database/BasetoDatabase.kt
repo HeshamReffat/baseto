@@ -18,7 +18,7 @@ abstract class BasetoDatabase : RoomDatabase() {
                     INSTANCE = Room.databaseBuilder(
                         context.applicationContext,
                         BasetoDatabase::class.java,
-                        "kelineDb"
+                        "basetoDb"
                     ).build();
                 }
             }
