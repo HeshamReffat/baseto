@@ -1,9 +1,11 @@
 package com.hisham.baseto.data.api
 
+import com.hisham.baseto.data.models.banners.BannersModel
 import com.hisham.baseto.data.models.user.UserDataModel
 import retrofit2.Response
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
+import retrofit2.http.GET
 import retrofit2.http.POST
 
 interface RetrofitCalls {
@@ -23,4 +25,6 @@ interface RetrofitCalls {
         @Field("password") password: String,
         @Field("image") image: String
     ): Response<UserDataModel>
+    @GET("banners")
+    suspend fun getHomeBanners():Response<BannersModel>
 }
