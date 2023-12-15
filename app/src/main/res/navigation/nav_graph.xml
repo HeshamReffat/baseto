@@ -3,17 +3,17 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/onBoardFragment">
+    app:startDestination="@id/onboardfragment">
 
     <fragment
-        android:id="@+id/onBoardFragment"
+        android:id="@+id/onboardfragment"
         android:name="com.hisham.baseto.presentation.fragments.OnboardFragment"
         android:label="fragment_Onboard"
         tools:layout="@layout/fragment_onboard">
         <action
             android:id="@+id/action_loginFragment_to_loginRegisterFragment"
             app:destination="@id/loginRegisterFragment"
-            app:popUpTo="@id/onBoardFragment" />
+            app:popUpTo="@id/onboardfragment" />
     </fragment>
     <fragment
         android:id="@+id/loginRegisterFragment"
@@ -35,4 +35,9 @@
         android:id="@+id/registerFragment"
         android:name="com.hisham.baseto.presentation.fragments.auth.RegisterFragment"
         android:label="RegisterFragment" />
+    <fragment
+        android:id="@+id/mainFragment"
+        android:name="com.hisham.baseto.presentation.fragments.main.MainFragment"
+        android:label="fragment_main"
+        tools:layout="@layout/fragment_main" />
 </navigation>

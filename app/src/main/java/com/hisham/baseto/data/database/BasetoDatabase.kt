@@ -7,18 +7,18 @@ import androidx.room.RoomDatabase
 import com.hisham.baseto.data.models.user.User
 
 @Database(entities = [User::class], version = 1, exportSchema = false)
-abstract class KelineDatabase : RoomDatabase() {
-    abstract val dao: KelineDao
+abstract class BasetoDatabase : RoomDatabase() {
+    abstract val dao: BasetoDao
 
     companion object {
-        private lateinit var INSTANCE: KelineDatabase
-        fun initDatabase(context: Context): KelineDatabase {
-            synchronized(KelineDatabase::class.java) {
+        private lateinit var INSTANCE: BasetoDatabase
+        fun initDatabase(context: Context): BasetoDatabase {
+            synchronized(BasetoDatabase::class.java) {
                 if (!::INSTANCE.isInitialized) {
                     INSTANCE = Room.databaseBuilder(
                         context.applicationContext,
-                        KelineDatabase::class.java,
-                        "kelineDb"
+                        BasetoDatabase::class.java,
+                        "Baseto_DB"
                     ).build();
                 }
             }
