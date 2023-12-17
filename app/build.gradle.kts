@@ -83,6 +83,7 @@ dependencies {
     //glide
     implementation ("com.github.bumptech.glide:glide:4.14.2")
     ksp ("com.github.bumptech.glide:ksp:4.14.2")
-
+    implementation ("com.github.smarteist:autoimageslider:1.3.9")
     //jsonParse
+
 }

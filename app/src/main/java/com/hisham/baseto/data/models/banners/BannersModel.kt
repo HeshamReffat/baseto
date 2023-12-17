@@ -6,11 +6,11 @@ data class BannersModel(
 
     @SerializedName("status") var status: Boolean? = null,
     @SerializedName("message") var message: String? = null,
-    @SerializedName("data") var data: ArrayList<Data> = arrayListOf()
+    @SerializedName("data") var data: ArrayList<ImageData> = arrayListOf()
 
 )
 
-data class Data(
+data class ImageData(
 
     @SerializedName("id") var id: Int? = null,
     @SerializedName("image") var image: String? = null,
