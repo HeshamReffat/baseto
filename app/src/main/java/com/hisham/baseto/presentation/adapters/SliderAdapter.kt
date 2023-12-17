@@ -50,11 +50,11 @@ class SliderAdapter(context: Context?, sliderDataArrayList: ArrayList<ImageData>
      class SliderAdapterViewHolder(itemView: View) : ViewHolder(itemView) {
         // Adapter class for initializing
         // the views of our slider view.
-        lateinit var imageView: View
+         var imageView: View
         var imageViewBackground: ImageView
 
         init {
-            imageViewBackground = itemView.findViewById<ImageView>(R.id.myImageView)
+            imageViewBackground = itemView.findViewById(R.id.myImageView)
             imageView = itemView
         }
     }
