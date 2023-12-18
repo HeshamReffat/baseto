@@ -10,19 +10,20 @@ import androidx.databinding.DataBindingUtil
 import com.bumptech.glide.Glide
 import com.hisham.baseto.R
 import com.hisham.baseto.data.models.banners.ImageData
+import com.hisham.baseto.data.models.home.Banners
 import com.hisham.baseto.databinding.SliderLayoutBinding
 import com.smarteist.autoimageslider.SliderViewAdapter
 
 class SliderAdapter() :
     SliderViewAdapter<SliderAdapter.SliderAdapterViewHolder>() {
     // list for storing urls of images.
-    private val mSliderItems = ArrayList<ImageData>()
+    private val mSliderItems = ArrayList<Banners>()
 
     // Constructor
 
-    fun setBanners(movies: List<ImageData>) {
+    fun setBanners(banners: List<Banners>) {
         mSliderItems.clear()
-        mSliderItems.addAll(movies)
+        mSliderItems.addAll(banners)
 
     }
 
@@ -53,7 +54,7 @@ class SliderAdapter() :
         // Adapter class for initializing
         // the views of our slider view.
 
-        fun bind(image: ImageData) {
+        fun bind(image: Banners) {
             Glide.with(binding.myImageView.context)
                 .load(image.image)
                 .fitCenter()

@@ -9,17 +9,18 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.hisham.baseto.R
-import com.hisham.baseto.data.database.BasetoDatabase
-import com.hisham.baseto.data.models.banners.ImageData
 import com.hisham.baseto.databinding.FragmentHomeBinding
-import com.hisham.baseto.databinding.FragmentLoginBinding
+import com.hisham.baseto.domain.repository.CategoriesRepository
 import com.hisham.baseto.domain.repository.HomeRepository
-import com.hisham.baseto.domain.repository.UserRepository
-import com.hisham.baseto.domain.viewmodels.auth.AuthViewModel
-import com.hisham.baseto.domain.viewmodels.auth.AuthViewModelFactory
+import com.hisham.baseto.domain.viewmodels.categories.CategoriesViewModel
+import com.hisham.baseto.domain.viewmodels.categories.CategoriesViewModelFactory
 import com.hisham.baseto.domain.viewmodels.home.HomeViewModel
 import com.hisham.baseto.domain.viewmodels.home.HomeViewModelFactory
+import com.hisham.baseto.presentation.adapters.HomeCategoriesListAdapter
+import com.hisham.baseto.presentation.adapters.HomeProductsListAdapter
 import com.hisham.baseto.presentation.adapters.SliderAdapter
 import com.smarteist.autoimageslider.SliderView
 
@@ -32,34 +33,87 @@ class HomeFragment : Fragment() {
 
         ViewModelProvider(this, viewModelFactory).get(HomeViewModel::class.java)
     }
+    private val catViewModel: CategoriesViewModel by lazy {
+        val application = requireNotNull(this.activity).application
+        //val database = BasetoDatabase.initDatabase(application.applicationContext).dao
+        val repo = CategoriesRepository()
+        val viewModelFactory = CategoriesViewModelFactory(repo, application.applicationContext)
+
+        ViewModelProvider(this, viewModelFactory).get(CategoriesViewModel::class.java)
+    }
     lateinit var binding: FragmentHomeBinding
-    private lateinit var adapter: SliderAdapter
+    private lateinit var bannersAdapter: SliderAdapter
+    private lateinit var catAdapter: HomeCategoriesListAdapter
+    private lateinit var productsAdapter: HomeProductsListAdapter
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
 
-        binding = DataBindingUtil.inflate(inflater,R.layout.fragment_home, container, false)
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false)
         initSliderAdapter()
+        initCategoriesAdapter()
+        initProductsAdapter()
         return binding.root
 
     }
+
     private fun initSliderAdapter() {
-        adapter = SliderAdapter()
+        bannersAdapter = SliderAdapter()
         binding.slider.autoCycleDirection = SliderView.LAYOUT_DIRECTION_LTR
-        binding.slider.setSliderAdapter(adapter)
-        binding.slider.setScrollTimeInSec(3)
+        binding.slider.setSliderAdapter(bannersAdapter)
+        binding.slider.scrollTimeInSec = 3
         binding.slider.isAutoCycle = true
         binding.slider.startAutoCycle()
         displayBanners()
 
     }
-    private fun displayBanners(){
+
+    private fun displayBanners() {
         viewModel.imageList.observe(viewLifecycleOwner, Observer {
             Log.i("arrayImagesList", it[0].image ?: "NoImage")
-            adapter.setBanners(it)
-            adapter.notifyDataSetChanged()
+            bannersAdapter.setBanners(it)
+            bannersAdapter.notifyDataSetChanged()
+        })
+    }
+
+    private fun initCategoriesAdapter() {
+
+        catAdapter = HomeCategoriesListAdapter(onClickListener = HomeCategoriesListAdapter.OnClickListener {
+            catViewModel.navigateToCategoryDetails(it)
+        })
+        binding.homeCategoriesList.adapter = catAdapter
+        binding.homeCategoriesList.layoutManager = LinearLayoutManager(this.context, LinearLayoutManager.HORIZONTAL, false);
+        catViewModel.homeCategories.observe(viewLifecycleOwner, Observer {
+            it.data?.let { cats -> catAdapter.setCategories(cats.catData)  }
+            catAdapter.notifyDataSetChanged()
+        })
+
+        catViewModel.navigateToSelectedCategory.observe(viewLifecycleOwner, Observer {
+            if (null != it) {
+                //this.findNavController().navigate(MainFragmentDirections.actionShowDetail(it))
+                catViewModel.navigateToCategoryDetailsComplete()
+            }
+        })
+    }
+    private fun initProductsAdapter() {
+
+        productsAdapter = HomeProductsListAdapter(onClickListener = HomeProductsListAdapter.OnClickListener {
+            viewModel.navigateToProductDetails(it)
+        })
+        binding.homeProductsList.adapter = productsAdapter
+        binding.homeProductsList.layoutManager = GridLayoutManager(this.context,2);
+        viewModel.productsList.observe(viewLifecycleOwner, Observer {
+            it?.let { cats -> productsAdapter.setProducts(it)  }
+            productsAdapter.notifyDataSetChanged()
+        })
+
+        viewModel.navigateToSelectedProduct.observe(viewLifecycleOwner, Observer {
+            if (null != it) {
+                //this.findNavController().navigate(MainFragmentDirections.actionShowDetail(it))
+                viewModel.navigateToProductDetailsComplete()
+            }
         })
     }
 }
