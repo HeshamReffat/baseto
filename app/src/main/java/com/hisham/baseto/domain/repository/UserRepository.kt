@@ -17,7 +17,7 @@ class UserRepository(private val database: BasetoDao, private val activity: Acti
         var response: Response<UserDataModel>
         withContext(Dispatchers.IO) {
             response = RetrofitInstance.retrofitInstance.loginUser(email, password)
-            if (response.code() == 200) {
+            if (response.body()?.status == true) {
                 val user = response.body()?.data ?: User()
                 database.insertUser(user)
                 val sharedPreferences = activity.getPreferences(Context.MODE_PRIVATE)

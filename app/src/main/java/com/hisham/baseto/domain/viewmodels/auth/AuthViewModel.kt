@@ -42,6 +42,7 @@ class AuthViewModel(private val repo: UserRepository, private val context: Conte
                         _loggedIn.value = true
                         getUser(response.body()?.data?.id ?: 0)
                     }
+                    Toast.makeText(context, response.body()?.message, Toast.LENGTH_SHORT).show()
                     _loading.value = Constants.ApiStatus.DONE
                 }
             } catch (e: Exception) {
