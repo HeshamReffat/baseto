@@ -14,11 +14,23 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.hisham.baseto.R
 import com.hisham.baseto.databinding.FragmentCategoryDetailsBinding
 import com.hisham.baseto.domain.repository.CategoriesRepository
+import com.hisham.baseto.domain.repository.HomeRepository
 import com.hisham.baseto.domain.viewmodels.categories.CategoriesViewModel
 import com.hisham.baseto.domain.viewmodels.categories.CategoriesViewModelFactory
+import com.hisham.baseto.domain.viewmodels.home.HomeViewModel
+import com.hisham.baseto.domain.viewmodels.home.HomeViewModelFactory
 import com.hisham.baseto.presentation.adapters.CategoryProductsListAdapter
+import com.hisham.baseto.presentation.fragments.main.MainFragmentDirections
 
 class CategoryDetailsFragment : Fragment() {
+    private val homeViewModel: HomeViewModel by lazy {
+        val application = requireNotNull(this.activity).application
+        //val database = BasetoDatabase.initDatabase(application.applicationContext).dao
+        val repo = HomeRepository(requireActivity())
+        val viewModelFactory = HomeViewModelFactory(repo, application.applicationContext)
+
+        ViewModelProvider(requireActivity(), viewModelFactory).get(HomeViewModel::class.java)
+    }
     private val viewModel: CategoriesViewModel by lazy {
         val application = requireNotNull(this.activity).application
         //val database = BasetoDatabase.initDatabase(application.applicationContext).dao
@@ -54,6 +66,7 @@ class CategoryDetailsFragment : Fragment() {
 
         productsAdapter =
             CategoryProductsListAdapter(onClickListener = CategoryProductsListAdapter.OnClickListener {
+                homeViewModel.getProductData(it.id.toString())
                 viewModel.navigateToProductDetails(it)
             })
         binding.categoryProductsList.adapter = productsAdapter
@@ -70,7 +83,7 @@ class CategoryDetailsFragment : Fragment() {
 
         viewModel.navigateToSelectedProductData.observe(viewLifecycleOwner, Observer {
             if (null != it) {
-                //this.findNavController().navigate(MainFragmentDirections.actionShowDetail(it))
+                view?.findNavController()?.navigate(CategoryDetailsFragmentDirections.actionCategoryDetailsFragmentToProductDetailsFragment("category"))
                 viewModel.navigateToProductDetailsComplete()
             }
         })

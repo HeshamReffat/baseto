@@ -48,6 +48,9 @@
         <action
             android:id="@+id/action_mainFragment_to_categoryDetailsFragment"
             app:destination="@id/categoryDetailsFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_productDetailsFragment"
+            app:destination="@id/productDetailsFragment" />
     </fragment>
     <fragment
         android:id="@+id/categoryDetailsFragment"
@@ -63,6 +66,9 @@
             app:destination="@id/mainFragment"
             app:popUpTo="@id/categoryDetailsFragment"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_categoryDetailsFragment_to_productDetailsFragment"
+            app:destination="@id/productDetailsFragment" />
     </fragment>
     <fragment
         android:id="@+id/homeFragment"
@@ -71,5 +77,24 @@
         <action
             android:id="@+id/action_homeFragment_to_categoryDetailsFragment"
             app:destination="@id/categoryDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/productDetailsFragment"
+        android:name="com.hisham.baseto.presentation.fragments.product.ProductDetailsFragment"
+        android:label="fragment_product_details"
+        tools:layout="@layout/fragment_product_details" >
+        <action
+            android:id="@+id/action_productDetailsFragment_to_categoryDetailsFragment"
+            app:destination="@id/categoryDetailsFragment"
+            app:popUpTo="@id/productDetailsFragment"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_productDetailsFragment_to_mainFragment"
+            app:destination="@id/mainFragment"
+            app:popUpTo="@id/productDetailsFragment"
+            app:popUpToInclusive="true" />
+        <argument
+            android:name="from"
+            app:argType="string" />
     </fragment>
 </navigation>

@@ -1,60 +1,64 @@
 package com.hisham.baseto.presentation.fragments.product
 
 import android.os.Bundle
+import android.text.TextUtils
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.findNavController
+import com.bumptech.glide.Glide
 import com.hisham.baseto.R
+import com.hisham.baseto.databinding.FragmentHomeBinding
+import com.hisham.baseto.databinding.FragmentProductDetailsBinding
+import com.hisham.baseto.domain.repository.HomeRepository
+import com.hisham.baseto.domain.viewmodels.home.HomeViewModel
+import com.hisham.baseto.domain.viewmodels.home.HomeViewModelFactory
+import com.hisham.baseto.presentation.fragments.category.CategoryDetailsFragmentArgs
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [ProductDetailsFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class ProductDetailsFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+    private val viewModel: HomeViewModel by lazy {
+        val application = requireNotNull(this.activity).application
+        //val database = BasetoDatabase.initDatabase(application.applicationContext).dao
+        val repo = HomeRepository(requireActivity())
+        val viewModelFactory = HomeViewModelFactory(repo, application.applicationContext)
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
+        ViewModelProvider(requireActivity(), viewModelFactory).get(HomeViewModel::class.java)
     }
-
+    lateinit var binding: FragmentProductDetailsBinding
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_product_details, container, false)
-    }
-
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment ProductDetailsFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            ProductDetailsFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_product_details, container, false)
+        val navFrom = ProductDetailsFragmentArgs.fromBundle(requireArguments()).from
+        viewModel.productsInfo.observe(viewLifecycleOwner, Observer {
+            binding.apply {
+                productName.text = it.data?.name
+                productName.ellipsize = TextUtils.TruncateAt.END;
+                productName.maxLines = 2;
+                productPrice.text = "${it.data?.price?.toDouble()} EGP"
+                productDesc.text = it.data?.description
+                Glide.with(requireContext()).load(it.data?.image).into(productImageView)
             }
+        })
+
+        binding.toolbar.setNavigationIcon(R.drawable.arrow_back_ios_new)
+        binding.toolbar.navigationIcon?.setTint(resources.getColor(R.color.white))
+        binding.toolbar.setNavigationOnClickListener {
+            if(navFrom == "home") {
+                view?.findNavController()
+                    ?.navigate(R.id.action_productDetailsFragment_to_mainFragment)
+            }else{
+                view?.findNavController()
+                    ?.navigate(R.id.action_productDetailsFragment_to_categoryDetailsFragment)
+            }
+        }
+        binding.viewModel = viewModel
+        return binding.root
     }
 }
