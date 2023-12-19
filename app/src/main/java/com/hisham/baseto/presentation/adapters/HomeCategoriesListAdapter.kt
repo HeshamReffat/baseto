@@ -18,8 +18,8 @@ class HomeCategoriesListAdapter (private val onClickListener: OnClickListener): 
         categories.addAll(cats)
 
     }
-    class OnClickListener(val clickListener:(cayegory: CategoryData)->Unit){
-        fun onClick(cayegory: CategoryData) = clickListener(cayegory)
+    class OnClickListener(val clickListener:(category: CategoryData)->Unit){
+        fun onClick(category: CategoryData) = clickListener(category)
     }
     class ViewHolder(private val binding: CategoryItemLayoutBinding) :
         RecyclerView.ViewHolder(binding.root) {
@@ -42,6 +42,9 @@ class HomeCategoriesListAdapter (private val onClickListener: OnClickListener): 
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bind(categories[position])
+        holder.itemView.setOnClickListener {
+            onClickListener.onClick(categories[position])
+        }
     }
     companion object DiffCallBack : DiffUtil.ItemCallback<CategoryData>() {
         override fun areItemsTheSame(oldItem: CategoryData, newItem: CategoryData): Boolean {

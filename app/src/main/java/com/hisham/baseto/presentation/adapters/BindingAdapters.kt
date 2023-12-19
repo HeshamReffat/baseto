@@ -7,6 +7,7 @@ import android.widget.Button
 import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
+import androidx.recyclerview.widget.RecyclerView
 import com.hisham.baseto.utils.Constants
 
 @BindingAdapter("textFontWeight")
@@ -54,6 +55,28 @@ fun bindButtonStatus(button: Button, status: Constants.ApiStatus?) {
         Constants.ApiStatus.DONE -> {
 
             button.visibility = View.VISIBLE
+        }
+
+        else -> {}
+    }
+}
+
+@BindingAdapter("listStatus")
+fun bindListStatus(list: RecyclerView, status: Constants.ApiStatus?) {
+    when (status) {
+        Constants.ApiStatus.LOADING -> {
+
+            list.visibility = View.GONE
+        }
+
+        Constants.ApiStatus.ERROR -> {
+
+            list.visibility = View.VISIBLE
+        }
+
+        Constants.ApiStatus.DONE -> {
+
+            list.visibility = View.VISIBLE
         }
 
         else -> {}

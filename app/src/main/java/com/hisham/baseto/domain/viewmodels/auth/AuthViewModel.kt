@@ -90,7 +90,7 @@ class AuthViewModel(private val repo: UserRepository, private val context: Conte
     private fun getUser(id: Int) {
         viewModelScope.launch {
             repo.getUser(id)
-            Toast.makeText(context, "User Data Retrieved", Toast.LENGTH_SHORT)
+            Toast.makeText(context, "User com.hisham.baseto.data.models.categories.Data Retrieved", Toast.LENGTH_SHORT)
                 .show()
         }
     }

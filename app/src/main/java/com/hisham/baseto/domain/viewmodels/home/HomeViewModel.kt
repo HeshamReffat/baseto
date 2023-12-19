@@ -11,7 +11,9 @@ import com.hisham.baseto.data.models.categories.CategoriesModel
 import com.hisham.baseto.data.models.categories.CategoryData
 import com.hisham.baseto.data.models.home.Banners
 import com.hisham.baseto.data.models.home.Products
+import com.hisham.baseto.data.models.product.ProductDetailsModel
 import com.hisham.baseto.domain.repository.HomeRepository
+import com.hisham.baseto.utils.Constants
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -23,10 +25,16 @@ class HomeViewModel(private val repository: HomeRepository, private val context:
     private val _productsList = MutableLiveData<ArrayList<Products>>()
     val productsList: LiveData<ArrayList<Products>>
         get() = _productsList
+    private val _productsInfo = MutableLiveData<ProductDetailsModel>()
+    val productsInfo: LiveData<ProductDetailsModel>
+        get() = _productsInfo
     private val _navigateToSelectedProduct = MutableLiveData<Products?>()
     val navigateToSelectedProduct: LiveData<Products?>
         get() = _navigateToSelectedProduct
-    private val _homeCategories = MutableLiveData<CategoriesModel>()
+
+    private val _loading = MutableLiveData<Constants.ApiStatus?>()
+    val loading: LiveData<Constants.ApiStatus?>
+        get() = _loading
     init {
         getHomeData()
     }
@@ -44,6 +52,21 @@ class HomeViewModel(private val repository: HomeRepository, private val context:
             val response = repository.getHomeData()
             _imageList.value = response.body()?.data!!.banners
             _productsList.value = response.body()?.data!!.products
+        }
+    }
+
+    fun getProductData(id: String) {
+        viewModelScope.launch {
+            try {
+                _loading.value = Constants.ApiStatus.LOADING
+                val response = repository.getProductData(id)
+                _productsInfo.value = response.body()
+                _loading.value = Constants.ApiStatus.DONE
+            } catch (e: Exception) {
+                _loading.value = Constants.ApiStatus.DONE
+                Log.i("ProductDetails", e.message ?: "No Error")
+            }
+
         }
     }
 

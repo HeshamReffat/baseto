@@ -14,6 +14,11 @@
             android:id="@+id/action_loginFragment_to_loginRegisterFragment"
             app:destination="@id/loginRegisterFragment"
             app:popUpTo="@id/onboardfragment" />
+        <action
+            android:id="@+id/action_onboardfragment_to_mainFragment"
+            app:destination="@id/mainFragment"
+            app:popUpTo="@id/onboardfragment"
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/loginRegisterFragment"
@@ -39,5 +44,32 @@
         android:id="@+id/mainFragment"
         android:name="com.hisham.baseto.presentation.fragments.main.MainFragment"
         android:label="fragment_main"
-        tools:layout="@layout/fragment_main" />
+        tools:layout="@layout/fragment_main" >
+        <action
+            android:id="@+id/action_mainFragment_to_categoryDetailsFragment"
+            app:destination="@id/categoryDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/categoryDetailsFragment"
+        android:name="com.hisham.baseto.presentation.fragments.category.CategoryDetailsFragment"
+        android:label="fragment_category_details"
+        tools:layout="@layout/fragment_category_details" >
+        <argument
+            android:name="title"
+            app:argType="string"
+            android:defaultValue="Category Details" />
+        <action
+            android:id="@+id/action_categoryDetailsFragment_to_mainFragment"
+            app:destination="@id/mainFragment"
+            app:popUpTo="@id/categoryDetailsFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.hisham.baseto.presentation.fragments.home.HomeFragment"
+        android:label="HomeFragment" >
+        <action
+            android:id="@+id/action_homeFragment_to_categoryDetailsFragment"
+            app:destination="@id/categoryDetailsFragment" />
+    </fragment>
 </navigation>

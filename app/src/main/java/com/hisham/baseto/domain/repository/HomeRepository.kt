@@ -5,6 +5,7 @@ import android.util.Log
 import com.hisham.baseto.data.api.RetrofitInstance
 import com.hisham.baseto.data.models.banners.BannersModel
 import com.hisham.baseto.data.models.home.HomeDataModel
+import com.hisham.baseto.data.models.product.ProductDetailsModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import retrofit2.Response
@@ -23,6 +24,13 @@ class HomeRepository(private val activity: Activity) {
         var response: Response<HomeDataModel>
         withContext(Dispatchers.IO) {
             response = RetrofitInstance.retrofitInstance.getHomeData()
+        }
+        return response
+    }
+    suspend fun getProductData(id:String): Response<ProductDetailsModel> {
+        var response: Response<ProductDetailsModel>
+        withContext(Dispatchers.IO) {
+            response = RetrofitInstance.retrofitInstance.getProductData(id)
         }
         return response
     }
