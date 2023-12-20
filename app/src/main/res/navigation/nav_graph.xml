@@ -93,8 +93,5 @@
             app:destination="@id/mainFragment"
             app:popUpTo="@id/productDetailsFragment"
             app:popUpToInclusive="true" />
-        <argument
-            android:name="from"
-            app:argType="string" />
     </fragment>
 </navigation>

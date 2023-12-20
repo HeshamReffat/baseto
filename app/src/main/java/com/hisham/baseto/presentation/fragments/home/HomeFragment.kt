@@ -121,7 +121,7 @@ class HomeFragment : Fragment() {
 
         viewModel.navigateToSelectedProduct.observe(viewLifecycleOwner, Observer {
             if (null != it) {
-                view?.findNavController()?.navigate(MainFragmentDirections.actionMainFragmentToProductDetailsFragment("home"))
+                view?.findNavController()?.navigate(MainFragmentDirections.actionMainFragmentToProductDetailsFragment())
                 viewModel.navigateToProductDetailsComplete()
             }
         })

@@ -56,7 +56,7 @@ class CategoryDetailsFragment : Fragment() {
         binding.toolbar.setNavigationIcon(R.drawable.arrow_back_ios_new)
         binding.toolbar.navigationIcon?.setTint(resources.getColor(R.color.white))
         binding.toolbar.setNavigationOnClickListener {
-            view?.findNavController()?.navigate(R.id.action_categoryDetailsFragment_to_mainFragment)
+            view?.findNavController()?.navigateUp()
         }
         return binding.root
 
@@ -83,7 +83,7 @@ class CategoryDetailsFragment : Fragment() {
 
         viewModel.navigateToSelectedProductData.observe(viewLifecycleOwner, Observer {
             if (null != it) {
-                view?.findNavController()?.navigate(CategoryDetailsFragmentDirections.actionCategoryDetailsFragmentToProductDetailsFragment("category"))
+                view?.findNavController()?.navigate(CategoryDetailsFragmentDirections.actionCategoryDetailsFragmentToProductDetailsFragment())
                 viewModel.navigateToProductDetailsComplete()
             }
         })

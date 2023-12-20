@@ -8,17 +8,18 @@
             type="com.hisham.baseto.domain.viewmodels.home.HomeViewModel" />
     </data>
 
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:isScrollContainer="true"
         android:layout_height="match_parent"
+        android:isScrollContainer="true"
         tools:context=".presentation.fragments.product.ProductDetailsFragment">
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_height="0dp"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            >
 
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/hg_top"
@@ -47,14 +48,14 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 app:layout_constraintGuide_end="20dp" />
+
             <com.google.android.material.appbar.AppBarLayout
                 android:id="@+id/appBarLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:theme="@style/Theme.MaterialComponents.Light"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                >
+                app:layout_constraintTop_toTopOf="parent">
 
                 <androidx.appcompat.widget.Toolbar
                     android:id="@+id/toolbar"
@@ -66,28 +67,31 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:title="@string/app_name"
+                    app:title="Product Info"
                     app:titleTextColor="@color/white" />
             </com.google.android.material.appbar.AppBarLayout>
 
             <ImageView
                 android:id="@+id/productImageView"
                 android:layout_width="0dp"
-                android:layout_marginTop="20dp"
                 android:layout_height="300dp"
+                app:layout_goneMarginTop="20dp"
                 android:layout_centerHorizontal="true"
+                android:layout_marginTop="10dp"
                 android:contentDescription="@string/app_name"
+                app:productInfo="@{viewModel.loading}"
                 app:layout_constraintEnd_toEndOf="@id/hg_end"
                 app:layout_constraintStart_toStartOf="@id/hg_start"
-                app:layout_constraintTop_toTopOf="@id/hg_top" />
+                app:layout_constraintTop_toBottomOf="@id/appBarLayout" />
 
             <TextView
                 android:id="@+id/productName"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:text="Product Name"
+                app:layout_constraintEnd_toEndOf="@id/hg_end"
                 android:textSize="22sp"
+                app:productInfo="@{viewModel.loading}"
                 app:layout_constraintStart_toStartOf="@id/hg_start"
                 app:layout_constraintTop_toBottomOf="@id/productImageView" />
 
@@ -96,8 +100,9 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:text="Product Price"
                 android:textSize="26sp"
+                app:productInfo="@{viewModel.loading}"
+                app:layout_constraintEnd_toEndOf="@id/hg_end"
                 app:layout_constraintStart_toStartOf="@id/hg_start"
                 app:layout_constraintTop_toBottomOf="@id/productName" />
 
@@ -106,21 +111,26 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:text="Product Desc"
                 android:textSize="18sp"
+                app:productInfo="@{viewModel.loading}"
                 app:layout_constraintStart_toStartOf="@id/hg_start"
+                app:layout_constraintEnd_toEndOf="@id/hg_end"
                 app:layout_constraintTop_toBottomOf="@id/productPrice" />
 
+            <ProgressBar
+                android:id="@+id/status_loading_wheel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="50dp"
+                android:indeterminate="true"
+                android:visibility="gone"
+                app:apiStatus="@{viewModel.loading}"
+                app:layout_constraintBottom_toBottomOf="@id/hg_bottom"
+                app:layout_constraintEnd_toEndOf="@id/hg_end"
+                app:layout_constraintStart_toStartOf="@id/hg_start"
+                app:layout_constraintTop_toTopOf="@id/hg_top" />
         </androidx.constraintlayout.widget.ConstraintLayout>
-        <ProgressBar
-            android:layout_marginTop="50dp"
-            android:id="@+id/status_loading_wheel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:indeterminate="true"
-            app:apiStatus="@{viewModel.loading}"
-            android:layout_gravity="center"
-            android:visibility="gone"
-            />
-    </RelativeLayout>
+    </ScrollView>
+
 </layout>

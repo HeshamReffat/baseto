@@ -82,3 +82,24 @@ fun bindListStatus(list: RecyclerView, status: Constants.ApiStatus?) {
         else -> {}
     }
 }
+@BindingAdapter("productInfo")
+fun bindDetailsStatus(layout: View, status: Constants.ApiStatus?) {
+    when (status) {
+        Constants.ApiStatus.LOADING -> {
+
+            layout.visibility = View.GONE
+        }
+
+        Constants.ApiStatus.ERROR -> {
+
+            layout.visibility = View.VISIBLE
+        }
+
+        Constants.ApiStatus.DONE -> {
+
+            layout.visibility = View.VISIBLE
+        }
+
+        else -> {}
+    }
+}
