@@ -17,7 +17,7 @@ import retrofit2.http.Path
 interface RetrofitCalls {
     @FormUrlEncoded
     @POST("login")
-    @Headers("lang:en")
+
     suspend fun loginUser(
         @Field("email") email: String,
         @Field("password") password: String
@@ -25,7 +25,7 @@ interface RetrofitCalls {
 
     @FormUrlEncoded
     @POST("register")
-    @Headers("lang:en")
+
     suspend fun registerUser(
         @Field("email") email: String,
         @Field("phone") phone: String,
@@ -34,18 +34,18 @@ interface RetrofitCalls {
         @Field("image") image: String
     ): Response<UserDataModel>
     @GET("banners")
-    @Headers("lang:en")
+
     suspend fun getHomeBanners():Response<BannersModel>
     @GET("categories")
-    @Headers("lang:en")
+
     suspend fun getCategories():Response<CategoriesModel>
     @GET("categories/{id}")
-    @Headers("lang:en")
+
     suspend fun getCategoryDetails(@Path("id") id:String):Response<CategoryDetailsModel>
     @GET("home")
-    @Headers("lang:en")
+
     suspend fun getHomeData():Response<HomeDataModel>
     @GET("products/{id}")
-    @Headers("lang:en")
+
     suspend fun getProductData(@Path("id") id:String):Response<ProductDetailsModel>
 }
