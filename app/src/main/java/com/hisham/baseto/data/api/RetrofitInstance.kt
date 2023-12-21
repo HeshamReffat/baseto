@@ -12,7 +12,7 @@ val okHttpClient = OkHttpClient.Builder().apply {
     addInterceptor(
         Interceptor { chain ->
             val builder = chain.request().newBuilder()
-            builder.header("lang", appLang)
+            builder.header("lang", appLang?:"en")
             return@Interceptor chain.proceed(builder.build())
         }
     )
