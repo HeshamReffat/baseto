@@ -42,10 +42,10 @@ class ProductDetailsFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_product_details, container, false)
-       // val navFrom = ProductDetailsFragmentArgs.fromBundle(requireArguments()).from
+        // val navFrom = ProductDetailsFragmentArgs.fromBundle(requireArguments()).from
         viewModel.productsInfo.observe(viewLifecycleOwner, Observer {
             binding.apply {
                 productName.text = it.data?.name
@@ -56,22 +56,16 @@ class ProductDetailsFragment : Fragment() {
                 Glide.with(requireContext()).load(it.data?.image).into(productImageView)
             }
         })
-
+        binding.addToCartBTN.setOnClickListener {_->
+             cartViewModel.addToCart( viewModel.productsInfo.value?.data?.id.toString())
+        }
         binding.toolbar.setNavigationIcon(R.drawable.arrow_back_ios_new)
         binding.toolbar.navigationIcon?.setTint(resources.getColor(R.color.white))
         binding.toolbar.setNavigationOnClickListener {
             view?.findNavController()?.navigateUp()
-//            if(navFrom == "home") {
-//
-//
-//                view?.findNavController()
-//                    ?.navigate(R.id.action_productDetailsFragment_to_mainFragment)
-//            }else{
-//                view?.findNavController()
-//                    ?.navigate(R.id.action_productDetailsFragment_to_categoryDetailsFragment)
-//            }
         }
         binding.viewModel = viewModel
+        binding.cartViewModel = cartViewModel
         binding.lifecycleOwner = this
         return binding.root
     }
