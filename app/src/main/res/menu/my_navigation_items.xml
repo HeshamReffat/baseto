@@ -3,17 +3,17 @@
     <item
         android:id="@+id/action_home"
         android:icon="@drawable/home"
-        android:title="Home" />
+        android:title="@string/home" />
     <item
         android:id="@+id/action_search"
         android:icon="@drawable/search"
-        android:title="Search" />
+        android:title="@string/search" />
     <item
         android:id="@+id/action_cart"
         android:icon="@drawable/cart"
-        android:title="Cart" />
+        android:title="@string/cart" />
     <item
         android:id="@+id/action_profile"
         android:icon="@drawable/profile"
-        android:title="Profile" />
+        android:title="@string/profile" />
 </menu>

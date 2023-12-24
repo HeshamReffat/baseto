@@ -64,7 +64,7 @@
         android:id="@+id/titleTV"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:text="The Right Address For Shopping Anyday"
+        android:text="@string/the_right_address_for_shopping_anyday"
         android:textAlignment="center"
         android:textSize="32sp"
         android:textStyle="bold"
@@ -78,7 +78,7 @@
         android:id="@+id/descTV"
         android:layout_width="220dp"
         android:layout_height="wrap_content"
-        android:text="It is now very easy to reach the best quality among all the products on the internet!"
+        android:text="@string/it_is_now_very_easy_to_reach_the_best_quality_among_all_the_products_on_the_internet"
         android:textSize="15sp"
         app:layout_constraintEnd_toEndOf="@id/VerticalLineEnd"
         app:layout_constraintStart_toStartOf="@+id/verticalLineStart"
@@ -92,6 +92,6 @@
         app:layout_constraintBottom_toBottomOf="@id/horizontalLineEnd"
         app:layout_constraintStart_toStartOf="@id/verticalLineStart"
         app:layout_constraintEnd_toEndOf="@id/VerticalLineEnd"
-        android:text="Next"/>
+        android:text="@string/next"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

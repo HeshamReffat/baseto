@@ -16,8 +16,11 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.hisham.baseto.R
 import com.hisham.baseto.databinding.FragmentHomeBinding
+import com.hisham.baseto.domain.repository.CartRepository
 import com.hisham.baseto.domain.repository.CategoriesRepository
 import com.hisham.baseto.domain.repository.HomeRepository
+import com.hisham.baseto.domain.viewmodels.cart.CartViewModel
+import com.hisham.baseto.domain.viewmodels.cart.CartViewModelFactory
 import com.hisham.baseto.domain.viewmodels.categories.CategoriesViewModel
 import com.hisham.baseto.domain.viewmodels.categories.CategoriesViewModelFactory
 import com.hisham.baseto.domain.viewmodels.home.HomeViewModel
@@ -31,15 +34,15 @@ import com.smarteist.autoimageslider.SliderView
 class HomeFragment : Fragment() {
     private val viewModel: HomeViewModel by lazy {
         val application = requireNotNull(this.activity).application
-        //val database = BasetoDatabase.initDatabase(application.applicationContext).dao
+
         val repo = HomeRepository(requireActivity())
         val viewModelFactory = HomeViewModelFactory(repo, application.applicationContext)
 
         ViewModelProvider(requireActivity(), viewModelFactory).get(HomeViewModel::class.java)
     }
-    private val catViewModel: CategoriesViewModel by lazy {
+    private val categoryViewModel: CategoriesViewModel by lazy {
         val application = requireNotNull(this.activity).application
-        //val database = BasetoDatabase.initDatabase(application.applicationContext).dao
+
         val repo = CategoriesRepository()
         val viewModelFactory = CategoriesViewModelFactory(repo, application.applicationContext)
 
@@ -86,21 +89,25 @@ class HomeFragment : Fragment() {
 
         catAdapter =
             HomeCategoriesListAdapter(onClickListener = HomeCategoriesListAdapter.OnClickListener {
-                catViewModel.getCategoryDetails(it.id.toString())
-                catViewModel.navigateToCategoryDetails(it)
+                categoryViewModel.getCategoryDetails(it.id.toString())
+                categoryViewModel.navigateToCategoryDetails(it)
             })
         binding.homeCategoriesList.adapter = catAdapter
         binding.homeCategoriesList.layoutManager =
             LinearLayoutManager(this.context, LinearLayoutManager.HORIZONTAL, false);
-        catViewModel.homeCategories.observe(viewLifecycleOwner, Observer {
+        categoryViewModel.homeCategories.observe(viewLifecycleOwner, Observer {
             it.data?.let { cats -> catAdapter.setCategories(cats.catData) }
             catAdapter.notifyDataSetChanged()
         })
 
-        catViewModel.navigateToSelectedCategory.observe(viewLifecycleOwner, Observer {
+        categoryViewModel.navigateToSelectedCategory.observe(viewLifecycleOwner, Observer {
             if (null != it) {
-                view?.findNavController()?.navigate(MainFragmentDirections.actionMainFragmentToCategoryDetailsFragment(it.name?:""))
-                catViewModel.navigateToCategoryDetailsComplete()
+                view?.findNavController()?.navigate(
+                    MainFragmentDirections.actionMainFragmentToCategoryDetailsFragment(
+                        it.name ?: ""
+                    )
+                )
+                categoryViewModel.navigateToCategoryDetailsComplete()
             }
         })
     }
@@ -111,7 +118,7 @@ class HomeFragment : Fragment() {
             HomeProductsListAdapter(onClickListener = HomeProductsListAdapter.OnClickListener {
                 viewModel.getProductData(it.id.toString())
                 viewModel.navigateToProductDetails(it)
-            })
+            },)
         binding.homeProductsList.adapter = productsAdapter
         binding.homeProductsList.layoutManager = GridLayoutManager(this.context, 2);
         viewModel.productsList.observe(viewLifecycleOwner, Observer {
@@ -121,7 +128,8 @@ class HomeFragment : Fragment() {
 
         viewModel.navigateToSelectedProduct.observe(viewLifecycleOwner, Observer {
             if (null != it) {
-                view?.findNavController()?.navigate(MainFragmentDirections.actionMainFragmentToProductDetailsFragment())
+                view?.findNavController()
+                    ?.navigate(MainFragmentDirections.actionMainFragmentToProductDetailsFragment())
                 viewModel.navigateToProductDetailsComplete()
             }
         })

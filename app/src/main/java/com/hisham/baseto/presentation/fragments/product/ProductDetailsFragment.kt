@@ -14,7 +14,10 @@ import com.bumptech.glide.Glide
 import com.hisham.baseto.R
 import com.hisham.baseto.databinding.FragmentHomeBinding
 import com.hisham.baseto.databinding.FragmentProductDetailsBinding
+import com.hisham.baseto.domain.repository.CartRepository
 import com.hisham.baseto.domain.repository.HomeRepository
+import com.hisham.baseto.domain.viewmodels.cart.CartViewModel
+import com.hisham.baseto.domain.viewmodels.cart.CartViewModelFactory
 import com.hisham.baseto.domain.viewmodels.home.HomeViewModel
 import com.hisham.baseto.domain.viewmodels.home.HomeViewModelFactory
 import com.hisham.baseto.presentation.fragments.category.CategoryDetailsFragmentArgs
@@ -28,6 +31,12 @@ class ProductDetailsFragment : Fragment() {
         val viewModelFactory = HomeViewModelFactory(repo, application.applicationContext)
 
         ViewModelProvider(requireActivity(), viewModelFactory).get(HomeViewModel::class.java)
+    }
+    private val cartViewModel: CartViewModel by lazy {
+        val repo = CartRepository()
+        val viewModelFactory = CartViewModelFactory(repo)
+
+        ViewModelProvider(this, viewModelFactory).get(CartViewModel::class.java)
     }
     lateinit var binding: FragmentProductDetailsBinding
     override fun onCreateView(

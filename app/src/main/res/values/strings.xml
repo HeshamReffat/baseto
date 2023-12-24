@@ -1,6 +1,21 @@
 <resources>
     <string name="app_name">baseto</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="cartfragment">CartFragment</string>
+    <string name="categories">Categories</string>
+    <string name="products">Products</string>
+    <string name="login">Login</string>
+    <string name="do_you_have_an_account_login">Do you have an account? Login</string>
+    <string name="let_s_login">Let\'s Login.</string>
+    <string name="password">Password</string>
+    <string name="the_right_address_for_shopping_anyday">The Right Address For Shopping Anyday</string>
+    <string name="it_is_now_very_easy_to_reach_the_best_quality_among_all_the_products_on_the_internet">It is now very easy to reach the best quality among all the products on the internet!</string>
+    <string name="register">Register</string>
+    <string name="next">Next</string>
+    <string name="home">Home</string>
+    <string name="search">Search</string>
+    <string name="cart">Cart</string>
+    <string name="profile">Profile</string>
+    <string name="product_info">Product Info</string>
+    <string name="add_to_cart">Add to cart</string>
 </resources>

@@ -8,12 +8,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import com.hisham.baseto.MainActivity
 import com.hisham.baseto.R
 import com.hisham.baseto.databinding.FragmentMainBinding
 import com.hisham.baseto.presentation.fragments.cart.CartFragment
 import com.hisham.baseto.presentation.fragments.home.HomeFragment
 import com.hisham.baseto.presentation.fragments.profile.ProfileFragment
 import com.hisham.baseto.presentation.fragments.search.SearchFragment
+import com.hisham.baseto.utils.Constants
 
 class MainFragment : Fragment() {
     lateinit var binding: FragmentMainBinding
@@ -24,7 +26,7 @@ class MainFragment : Fragment() {
         replaceFragment(HomeFragment())
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_main, container, false)
         // Inflate the layout for this fragment
-        val sharedPreferences = requireActivity().getPreferences(Context.MODE_PRIVATE)
+
         binding.bottomNav.setOnItemSelectedListener {
             when (it.itemId) {
                 R.id.action_home -> {
@@ -33,10 +35,6 @@ class MainFragment : Fragment() {
                 }
 
                 R.id.action_search -> {
-                    //  context = LocaleHelper.setLocale(requireContext(), "en");
-
-                    sharedPreferences.edit().putString("appLang", "en").apply()
-                    requireContext().recreateTask()
                     replaceFragment(SearchFragment())
                     true
                 }
@@ -47,10 +45,7 @@ class MainFragment : Fragment() {
                 }
 
                 R.id.action_profile -> {
-                    // context = LocaleHelper.setLocale(requireContext(), "ar");
-                    //  ContextUtils.updateLocale(requireContext(),  Locale("ar"))
-                    sharedPreferences.edit().putString("appLang", "ar").apply()
-                    requireContext().recreateTask()
+
                     replaceFragment(ProfileFragment())
                     true
                 }

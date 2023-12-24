@@ -1,4 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="cartfragment">كارت فراجمنت</string>
+    <string name="app_name">Baseto</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="cartfragment">العربة</string>
+    <string name="categories">فئات</string>
+    <string name="products">منتجات</string>
+    <string name="login">تسجيل الدخول</string>
+    <string name="do_you_have_an_account_login">هل لديك حساب؟ تسجيل الدخول</string>
+    <string name="let_s_login">لنسجيل الدخول.</string>
+    <string name="password">كلمة المرور</string>
+    <string name="the_right_address_for_shopping_anyday">العنوان الصحيح للتسوق في أي وقت</string>
+    <string name="it_is_now_very_easy_to_reach_the_best_quality_among_all_the_products_on_the_internet">أصبح من السهل جدًا الآن الوصول إلى أفضل جودة بين جميع المنتجات الموجودة على الإنترنت!</string>
+    <string name="register">يسجل</string>
+    <string name="next">التالي</string>
+    <string name="home">الرئيسية</string>
+    <string name="search">بحث</string>
+    <string name="cart">العربة</string>
+    <string name="profile">الملف الشخصي</string>
+    <string name="product_info">معلومات المنتج</string>
+    <string name="add_to_cart">اضف الي العربه</string>
 </resources>
