@@ -19,4 +19,5 @@
     <string name="profile">الملف الشخصي</string>
     <string name="product_info">معلومات المنتج</string>
     <string name="add_to_cart">اضف الي العربه</string>
+    <string name="total">المجموع الكلي</string>
 </resources>

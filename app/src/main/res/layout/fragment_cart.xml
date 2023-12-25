@@ -1,16 +1,116 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".presentation.fragments.cart.CartFragment">
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.hisham.baseto.domain.viewmodels.cart.CartViewModel" />
+    </data>
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:text="@string/cartfragment"
-        android:textSize="32sp" />
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
-</FrameLayout>
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_marginVertical="20dp"
+            android:layout_height="match_parent"
+            app:viewStatus="@{viewModel.cartLoading}"
+            tools:context=".presentation.fragments.cart.CartFragment">
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/hg_top"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_begin="20dp" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/hg_bottom"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_end="20dp" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/hg_start"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_begin="20dp" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/hg_end"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_end="20dp" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/cart_products"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+
+                app:layout_constraintEnd_toStartOf="@id/hg_end"
+                app:layout_constraintStart_toStartOf="@id/hg_start"
+                app:layout_constraintTop_toBottomOf="@id/hg_top" />
+
+            <TextView
+                android:id="@+id/subtotalTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="subtotal"
+                android:textSize="28sp"
+                app:layout_constraintStart_toStartOf="@id/hg_start"
+                app:layout_constraintTop_toBottomOf="@id/cart_products" />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="10dp"
+                android:text="@{String.valueOf(viewModel.cartData.data.total)}"
+                android:textSize="28sp"
+                app:layout_constraintBottom_toBottomOf="@+id/subtotalTv"
+                app:layout_constraintStart_toEndOf="@id/subtotalTv"
+                app:layout_constraintTop_toTopOf="@id/subtotalTv" />
+
+            <TextView
+                android:id="@+id/totalTV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="@string/total"
+                android:textSize="28sp"
+                app:layout_constraintStart_toStartOf="@id/hg_start"
+                app:layout_constraintTop_toBottomOf="@id/subtotalTv" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="10dp"
+                android:text="@{String.valueOf(viewModel.cartData.data.total)}"
+                android:textSize="28sp"
+                app:layout_constraintBottom_toBottomOf="@+id/totalTV"
+                app:layout_constraintStart_toEndOf="@id/totalTV"
+                app:layout_constraintTop_toTopOf="@id/totalTV" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <ProgressBar
+            android:id="@+id/status_loading_wheel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="50dp"
+            android:indeterminate="true"
+            android:visibility="gone"
+            app:apiStatus="@{viewModel.cartLoading}" />
+    </LinearLayout>
+</layout>

@@ -2,10 +2,19 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
-
+    <data>
+        <variable
+            name="viewModel"
+            type="com.hisham.baseto.domain.viewmodels.home.HomeViewModel" />
+    </data>
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        app:viewStatus="@{viewModel.loading}"
         tools:context=".presentation.fragments.home.HomeFragment">
 
         <androidx.constraintlayout.widget.Guideline
@@ -96,4 +105,14 @@
             app:layout_constraintBottom_toTopOf="@id/hg_bottom"
             app:layout_constraintTop_toBottomOf="@id/productsTitle" />
     </androidx.constraintlayout.widget.ConstraintLayout>
+    <ProgressBar
+        android:id="@+id/status_loading_wheel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="50dp"
+        android:indeterminate="true"
+        android:visibility="gone"
+        app:apiStatus="@{viewModel.loading}" />
+</LinearLayout>
 </layout>

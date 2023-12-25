@@ -5,7 +5,9 @@ import android.os.Build
 import android.view.View
 import android.widget.Button
 import android.widget.ProgressBar
+import android.widget.ScrollView
 import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.hisham.baseto.utils.Constants
@@ -83,7 +85,28 @@ fun bindListStatus(list: RecyclerView, status: Constants.ApiStatus?) {
     }
 }
 @BindingAdapter("productInfo")
-fun bindDetailsStatus(layout: View, status: Constants.ApiStatus?) {
+fun bindDetailsStatus(layout: ScrollView, status: Constants.ApiStatus?) {
+    when (status) {
+        Constants.ApiStatus.LOADING -> {
+
+            layout.visibility = View.GONE
+        }
+
+        Constants.ApiStatus.ERROR -> {
+
+            layout.visibility = View.VISIBLE
+        }
+
+        Constants.ApiStatus.DONE -> {
+
+            layout.visibility = View.VISIBLE
+        }
+
+        else -> {}
+    }
+}
+@BindingAdapter("viewStatus")
+fun bindDetailsStatus(layout: ConstraintLayout, status: Constants.ApiStatus?) {
     when (status) {
         Constants.ApiStatus.LOADING -> {
 

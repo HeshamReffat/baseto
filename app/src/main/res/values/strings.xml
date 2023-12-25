@@ -18,4 +18,5 @@
     <string name="profile">Profile</string>
     <string name="product_info">Product Info</string>
     <string name="add_to_cart">Add to cart</string>
+    <string name="total">Total</string>
 </resources>
