@@ -10,12 +10,14 @@ import com.hisham.baseto.data.models.user.UserDataModel
 import com.hisham.baseto.utils.Constants.Companion.userToken
 import retrofit2.Response
 import retrofit2.http.Body
+import retrofit2.http.DELETE
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
 import retrofit2.http.GET
 import retrofit2.http.Header
 import retrofit2.http.Headers
 import retrofit2.http.POST
+import retrofit2.http.PUT
 import retrofit2.http.Path
 
 interface RetrofitCalls {
@@ -64,5 +66,22 @@ interface RetrofitCalls {
 
     @POST("carts")
 
-    suspend fun addToCart(@Header("Authorization") token: String? = userToken,@Body data: Map<String, String>): Response<Map<String, Any>>
+    suspend fun addToCart(
+        @Header("Authorization") token: String? = userToken,
+        @Body data: Map<String, String>
+    ): Response<Map<String, Any>>
+
+    @PUT("carts/{id}")
+
+    suspend fun updateCart(
+        @Header("Authorization") token: String? = userToken,
+        @Path("id") itemId: String,
+        @Body data: Map<String, String>
+    ): Response<Map<String, Any>>
+
+    @DELETE("carts/{id}")
+    suspend fun removeFromCart(
+        @Header("Authorization") token: String? = userToken,
+        @Path("id") itemId: String,
+    ): Response<Map<String, Any>>
 }

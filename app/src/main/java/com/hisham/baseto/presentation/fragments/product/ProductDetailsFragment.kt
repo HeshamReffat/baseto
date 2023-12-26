@@ -33,8 +33,9 @@ class ProductDetailsFragment : Fragment() {
         ViewModelProvider(requireActivity(), viewModelFactory).get(HomeViewModel::class.java)
     }
     private val cartViewModel: CartViewModel by lazy {
+        val application = requireActivity().application
         val repo = CartRepository()
-        val viewModelFactory = CartViewModelFactory(repo)
+        val viewModelFactory = CartViewModelFactory(repo,application)
 
         ViewModelProvider(this, viewModelFactory).get(CartViewModel::class.java)
     }

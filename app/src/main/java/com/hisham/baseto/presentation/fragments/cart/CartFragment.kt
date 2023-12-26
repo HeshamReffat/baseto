@@ -23,8 +23,9 @@ class CartFragment : Fragment() {
     lateinit var binding:FragmentCartBinding
     private lateinit var cartProductsAdapter:CartProductsListAdapter
     val cartViewModel:CartViewModel by lazy{
+        val application = requireActivity().application
         val repository = CartRepository()
-        val factory = CartViewModelFactory(repository)
+        val factory = CartViewModelFactory(repository,application)
         ViewModelProvider(requireActivity(),factory)[CartViewModel::class.java]
     }
     override fun onCreateView(
@@ -44,7 +45,7 @@ class CartFragment : Fragment() {
 
         cartProductsAdapter =
             CartProductsListAdapter(onClickListener = CartProductsListAdapter.OnClickListener {
-            })
+            },cartViewModel)
         binding.cartProducts.adapter = cartProductsAdapter
         binding.cartProducts.layoutManager =
             LinearLayoutManager(this.context, LinearLayoutManager.VERTICAL, false);

@@ -15,28 +15,53 @@ import com.hisham.baseto.data.models.cart.CartItems
 import com.hisham.baseto.databinding.CartProductItemLayoutBinding
 import com.hisham.baseto.databinding.CategoryProductItemLayoutBinding
 import com.hisham.baseto.databinding.ProductItemLayoutBinding
+import com.hisham.baseto.domain.viewmodels.cart.CartViewModel
 
-class CartProductsListAdapter(private val onClickListener: OnClickListener) :
+class CartProductsListAdapter(
+    private val onClickListener: OnClickListener,
+    private val cartViewModel: CartViewModel
+) :
     ListAdapter<CartItems, CartProductsListAdapter.ViewHolder>(DiffUtilCallBack) {
 
     private val items = ArrayList<CartItems>()
     fun setProducts(prods: List<CartItems>) {
         items.clear()
         items.addAll(prods)
-        Log.i("adapterCart",items[0].product?.image?:"No Image")
+        Log.i("adapterCart", items[0].product?.image ?: "No Image")
     }
 
     class OnClickListener(val onClickListener: (item: CartItems) -> Unit) {
         fun onClick(item: CartItems) = onClickListener(item)
     }
 
-    class ViewHolder(val binding: CartProductItemLayoutBinding) :
+    class ViewHolder(val binding: CartProductItemLayoutBinding, val cartViewModel: CartViewModel) :
         RecyclerView.ViewHolder(binding.root) {
+        var quantity: Int = 1
         fun bind(item: CartItems) {
+            quantity = item.quantity!!.toInt()
             binding.prodName.text = item.product?.name
             binding.prodPrice.text = "${item.product?.price?.toDouble()} EGP"
             binding.prodName.ellipsize = TextUtils.TruncateAt.END;
             binding.prodName.maxLines = 2;
+            binding.quantity.text = quantity.toString()
+
+            binding.addQuantity.setOnClickListener {
+                quantity++
+                binding.quantity.text = quantity.toString()
+                cartViewModel.updateCart(item.id.toString(), quantity.toString())
+            }
+            binding.decQuantity.setOnClickListener {
+                if (quantity == 1) {
+                    return@setOnClickListener
+                } else {
+                    quantity--
+                    binding.quantity.text = quantity.toString()
+                    cartViewModel.updateCart(item.id.toString(), quantity.toString())
+                }
+            }
+            binding.ivIcon.setOnClickListener {
+                cartViewModel.removeFromCart(item.id.toString())
+            }
             Glide.with(binding.prodImage.context).load(item.product?.image).into(binding.prodImage)
         }
     }
@@ -57,7 +82,7 @@ class CartProductsListAdapter(private val onClickListener: OnClickListener) :
         val binding: CartProductItemLayoutBinding =
             DataBindingUtil.inflate(inflater, R.layout.cart_product_item_layout, parent, false)
 
-        return ViewHolder(binding)
+        return ViewHolder(binding, cartViewModel)
     }
 
     override fun getItemCount(): Int {

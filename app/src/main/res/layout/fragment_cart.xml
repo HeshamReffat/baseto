@@ -12,7 +12,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="vertical">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -32,7 +32,7 @@
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/hg_bottom"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:orientation="horizontal"
                 app:layout_constraintGuide_end="20dp" />
 
@@ -53,10 +53,11 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/cart_products"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
                 android:orientation="vertical"
-
+                app:layout_constraintBottom_toTopOf="@id/subtotalTv"
                 app:layout_constraintEnd_toStartOf="@id/hg_end"
+                app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="@id/hg_start"
                 app:layout_constraintTop_toBottomOf="@id/hg_top" />
 
@@ -65,7 +66,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:text="subtotal"
+                android:text="Subtotal"
                 android:textSize="28sp"
                 app:layout_constraintStart_toStartOf="@id/hg_start"
                 app:layout_constraintTop_toBottomOf="@id/cart_products" />
@@ -75,7 +76,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="10dp"
-                android:text="@{String.valueOf(viewModel.cartData.data.total)}"
+                android:text="@{String.valueOf(viewModel.cartData.data.subTotal)}"
                 android:textSize="28sp"
                 app:layout_constraintBottom_toBottomOf="@+id/subtotalTv"
                 app:layout_constraintStart_toEndOf="@id/subtotalTv"
@@ -85,11 +86,13 @@
                 android:id="@+id/totalTV"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
+                android:layout_marginVertical="20dp"
                 android:text="@string/total"
                 android:textSize="28sp"
                 app:layout_constraintStart_toStartOf="@id/hg_start"
-                app:layout_constraintTop_toBottomOf="@id/subtotalTv" />
+                app:layout_constraintTop_toBottomOf="@id/subtotalTv"
+                app:layout_constraintBottom_toTopOf="@id/checkoutButton"
+                />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -100,6 +103,17 @@
                 app:layout_constraintBottom_toBottomOf="@+id/totalTV"
                 app:layout_constraintStart_toEndOf="@id/totalTV"
                 app:layout_constraintTop_toTopOf="@id/totalTV" />
+            <Button
+                android:id="@+id/checkoutButton"
+                android:layout_width="0dp"
+                android:layout_height="55dp"
+                android:backgroundTint="@color/blue"
+                app:layout_constraintTop_toBottomOf="@id/totalTV"
+                app:layout_constraintStart_toStartOf="@id/hg_start"
+                app:layout_constraintEnd_toEndOf="@id/hg_end"
+                app:layout_constraintBottom_toBottomOf="@id/hg_bottom"
+                android:text="Proceed to checkout"
+                />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
